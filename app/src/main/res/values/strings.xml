@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NYC Schools</string>
     <string name="tv_letter">A</string>
+    <string name="tv_text_math">Math</string>
 </resources>
