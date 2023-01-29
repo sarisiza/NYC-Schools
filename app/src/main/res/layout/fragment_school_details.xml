@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.SchoolDetails"
+    android:padding="16dp"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:id="@+id/tv_school_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_text_school_name"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:layout_marginVertical="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_overview_paragraph"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_text_overview_paragraph"
+        app:layout_constraintTop_toBottomOf="@id/tv_school_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginVertical="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_sat_score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_text_sat_scores"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_overview_paragraph"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginVertical="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_sat_scores"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sat_score"
+        android:layout_marginVertical="5dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,4 +2,10 @@
     <string name="app_name">NYC Schools</string>
     <string name="tv_letter">A</string>
     <string name="tv_text_math">Math</string>
+    <string name="tv_text_school_name">School Name</string>
+    <string name="tv_text_overview_paragraph">Overview Paragraph</string>
+    <string name="tv_text_sat_scores">SAT Scores</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
