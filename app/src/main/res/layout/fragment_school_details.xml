@@ -45,13 +45,46 @@
         android:textSize="20sp"
         android:layout_marginVertical="10dp"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_sat_scores"
-        android:layout_width="0dp"
+    <TableLayout
+        android:id="@+id/tab_sat_scores"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_sat_score"
-        android:layout_marginVertical="5dp"/>
+        android:layout_marginVertical="5dp"
+        android:layout_marginStart="120dp"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+                android:id="@+id/tv_math"
+                android:text="@string/tv_text_math"
+                android:padding="20dp"/>
+            <TextView
+                android:id="@+id/tv_math_score"
+                android:text="@string/tv_text_sat_result_def"
+                android:padding="20dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/tv_reading"
+                android:text="@string/tv_text_reading"
+                android:padding="20dp"/>
+            <TextView
+                android:id="@+id/tv_reading_score"
+                android:text="@string/tv_text_sat_result_def"
+                android:padding="20dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/tv_writing"
+                android:text="@string/tv_text_writing"
+                android:padding="20dp"/>
+            <TextView
+                android:id="@+id/tv_writing_score"
+                android:text="@string/tv_text_sat_result_def"
+                android:padding="20dp"/>
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
