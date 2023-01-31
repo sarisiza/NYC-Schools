@@ -4,6 +4,10 @@ package com.example.nycschools.model
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+/**
+ * [Data Class] - Defines the properties of a school
+ */
+
 @JsonClass(generateAdapter = true)
 data class SchoolItem(
     @Json(name = "dbn")

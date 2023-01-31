@@ -4,6 +4,9 @@ package com.example.nycschools.model
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+/**
+ * [Data Class] - Defines the properties of a SAT Results Item
+ */
 @JsonClass(generateAdapter = true)
 data class SatResultsItem(
     @Json(name = "dbn")
