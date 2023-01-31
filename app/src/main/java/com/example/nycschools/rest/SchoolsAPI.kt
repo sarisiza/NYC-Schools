@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 /**
- * Interface - Defines the methods to connect to the schools API through retrofit
+ * [FunctionalInterface] - Defines the methods to connect to the schools API through retrofit
  */
 
 interface SchoolsAPI {
