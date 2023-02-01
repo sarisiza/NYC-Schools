@@ -47,7 +47,7 @@ class SchoolsRepositoryImpl @Inject constructor(
                 response.body()?.let {
                     emit(UIState.SUCCESS(it as List<DataType>))
                 }?: throw NullSchoolsException() //check if response was null
-            }else throw FailureResponseException()
+            }else throw FailureResponseException(response.errorBody()?.string())
         }catch (e: Exception){
             emit(UIState.ERROR(e))
             Log.e(TAG, "getAllSchools: ${e.localizedMessage}", e)
@@ -65,7 +65,7 @@ class SchoolsRepositoryImpl @Inject constructor(
                 response.body()?.let {
                     emit(UIState.SUCCESS(it as List<DataType>))
                 }?: throw NullSatResultsException()
-            } else throw FailureResponseException()
+            } else throw FailureResponseException(response.errorBody()?.string())
         }catch (e: Exception){
             emit(UIState.ERROR(e))
             Log.e(TAG, "getAllSatResults: ${e.localizedMessage}", e)
