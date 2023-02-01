@@ -9,6 +9,7 @@ import com.example.nycschools.utils.NullSchoolsException
 import com.example.nycschools.utils.UIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 /**
  * [FunctionalInterface] - Defines retrofit methods
@@ -31,7 +32,7 @@ interface SchoolsRepository {
  * [Class] - Implement retrofit
  */
 
-class SchoolsRepositoryImpl(
+class SchoolsRepositoryImpl @Inject constructor(
     private val schoolsAPI: SchoolsAPI
 ) : SchoolsRepository{
 

@@ -7,6 +7,10 @@ class SchoolsApp: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        schoolsComponent = DaggerSchoolsComponent.builder()
+            .applicationModule(ApplicationModule(this))
+            .build()
+
     }
 
     companion object{
