@@ -1,6 +1,6 @@
 package com.example.nycschools.utils
 
-import com.example.nycschools.model.DataType
+import com.example.nycschools.model.SchoolItem
 
 
 /**
@@ -10,7 +10,7 @@ import com.example.nycschools.model.DataType
 sealed class UIState{
 
     object LOADING: UIState() //loading response
-    data class SUCCESS(val response: List<DataType>): UIState() //response succeeded
+    data class SUCCESS(val response: List<SchoolItem>): UIState() //response succeeded
     data class ERROR(val error: Exception): UIState() //error in response
 
 }

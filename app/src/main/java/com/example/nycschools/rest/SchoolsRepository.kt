@@ -2,7 +2,6 @@ package com.example.nycschools.rest
 
 import android.util.Log
 import com.example.nycschools.TAG
-import com.example.nycschools.model.DataType
 import com.example.nycschools.utils.FailureResponseException
 import com.example.nycschools.utils.NullSatResultsException
 import com.example.nycschools.utils.NullSchoolsException
@@ -45,7 +44,7 @@ class SchoolsRepositoryImpl @Inject constructor(
             val response = schoolsAPI.getSchools() //get json
             if(response.isSuccessful){ //check if response was successful
                 response.body()?.let {
-                    emit(UIState.SUCCESS(it as List<DataType>))
+                    emit(UIState.SUCCESS(it))
                 }?: throw NullSchoolsException() //check if response was null
             }else throw FailureResponseException(response.errorBody()?.string())
         }catch (e: Exception){
@@ -63,7 +62,7 @@ class SchoolsRepositoryImpl @Inject constructor(
             val response = schoolsAPI.getSatResults() //get json
             if (response.isSuccessful){
                 response.body()?.let {
-                    emit(UIState.SUCCESS(it as List<DataType>))
+                    emit(UIState.SUCCESS(it))
                 }?: throw NullSatResultsException()
             } else throw FailureResponseException(response.errorBody()?.string())
         }catch (e: Exception){
