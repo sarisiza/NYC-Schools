@@ -1,14 +1,18 @@
-package com.example.nycschools
+package com.example.nycschools.utils
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.nycschools.di.SchoolsApp
+import javax.inject.Inject
 
-const val TAG = "NYC Schools"
-class MainActivity : AppCompatActivity() {
+open class BaseFragment: Fragment() {
+
+    @Inject
+    lateinit var schoolsViewModelFactory: SchoolsViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         SchoolsApp.schoolsComponent.inject(this)
     }
+
 }

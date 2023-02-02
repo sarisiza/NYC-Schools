@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.nycschools.model.SchoolItem
 import com.example.nycschools.rest.SchoolsRepository
 import com.example.nycschools.utils.UIState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,7 +22,6 @@ class SchoolsViewModel(
      */
     init {
         getSchools()
-        getSatResults()
     }
 
     //backing schools LiveData
@@ -35,9 +35,9 @@ class SchoolsViewModel(
     /**
      * Method for getting the SAT Results List
      */
-    private fun getSatResults() {
+    private fun getSatResults(dbn: String) {
         viewModelScope.launch(ioDispatcher) {
-            schoolsRepository.getAllSatResults().collect {
+            schoolsRepository.getAllSatResults(dbn).collect {
                 _satResults.postValue(it)
             }
         }
@@ -52,6 +52,10 @@ class SchoolsViewModel(
                 _schools.postValue(it)
             }
         }
+    }
+
+    fun getSatResultByID(schoolItem: SchoolItem){
+        schoolItem.dbn?.let { getSatResults(it) }
     }
 
 

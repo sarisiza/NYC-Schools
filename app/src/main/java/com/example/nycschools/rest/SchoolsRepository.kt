@@ -23,7 +23,7 @@ interface SchoolsRepository {
     /**
      * Method to get SAT results
      */
-    fun getAllSatResults(): Flow<UIState>
+    fun getAllSatResults(dbn: String): Flow<UIState>
 
 }
 
@@ -56,10 +56,10 @@ class SchoolsRepositoryImpl @Inject constructor(
     /**
      * Method to get SAT results
      */
-    override fun getAllSatResults(): Flow<UIState> = flow{
+    override fun getAllSatResults(dbn: String): Flow<UIState> = flow{
         emit(UIState.LOADING)
         try {
-            val response = schoolsAPI.getSatResults() //get json
+            val response = schoolsAPI.getSatResults(dbn) //get json
             if (response.isSuccessful){
                 response.body()?.let {
                     emit(UIState.SUCCESS(it))

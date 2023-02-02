@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.nycschools.R
+import com.example.nycschools.utils.BaseFragment
 
 /**
  * [Fragment] to create School Details
  */
-class SchoolDetails : Fragment() {
+class SchoolDetails : BaseFragment() {
 
 
     override fun onCreateView(
