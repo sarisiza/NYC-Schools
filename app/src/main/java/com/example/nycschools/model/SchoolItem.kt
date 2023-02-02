@@ -28,4 +28,10 @@ data class SchoolItem(
     val schoolName: String? = null,
     @Json(name = "website")
     val website: String? = null,
+    @Json(name = "sat_critical_reading_avg_score")
+    val satCriticalReadingAvgScore: String? = null,
+    @Json(name = "sat_math_avg_score")
+    val satMathAvgScore: String? = null,
+    @Json(name = "sat_writing_avg_score")
+    val satWritingAvgScore: String? = null,
 )
