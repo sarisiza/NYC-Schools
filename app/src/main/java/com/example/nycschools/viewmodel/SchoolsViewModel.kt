@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nycschools.model.SchoolItem
 import com.example.nycschools.rest.SchoolsRepository
+import com.example.nycschools.utils.NullSchoolsException
 import com.example.nycschools.utils.UIState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
@@ -55,7 +56,9 @@ class SchoolsViewModel(
     }
 
     fun getSatResultByID(schoolItem: SchoolItem){
-        schoolItem.dbn?.let { getSatResults(it) }
+        schoolItem.dbn?.let {
+            getSatResults(it)
+        } ?: throw NullSchoolsException()
     }
 
 

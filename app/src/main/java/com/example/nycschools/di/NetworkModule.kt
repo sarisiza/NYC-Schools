@@ -1,6 +1,8 @@
 package com.example.nycschools.di
 
 import com.example.nycschools.rest.SchoolsAPI
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,14 +20,24 @@ import java.util.concurrent.TimeUnit
 @Module
 class NetworkModule {
 
+
+    @Provides
+    fun providesMoshi(): Moshi =
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
     /**
      * Method that provides retrofit connection for Repository
      */
     @Provides
-    fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit{
+    fun providesRetrofit(
+        okHttpClient: OkHttpClient,
+        moshi: Moshi
+    ): Retrofit{
         return Retrofit.Builder()
             .baseUrl(SchoolsAPI.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
     }
