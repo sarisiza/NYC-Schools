@@ -1,6 +1,7 @@
 package com.example.nycschools.model
 
 
+import androidx.room.Entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -8,6 +9,7 @@ import com.squareup.moshi.JsonClass
  * [Data Class] - Defines the properties of a school
  */
 
+@Entity("schools")
 @JsonClass(generateAdapter = true)
 data class SchoolItem(
     //Schools Item
