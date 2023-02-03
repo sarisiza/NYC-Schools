@@ -1,12 +1,20 @@
 package com.example.nycschools.view
 
+import android.app.AlertDialog
+import android.icu.lang.UCharacter.VerticalOrientation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nycschools.R
 import com.example.nycschools.databinding.FragmentSchoolInformationBinding
+import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.utils.BaseFragment
 import com.example.nycschools.utils.UIState
+import com.example.nycschools.view.adapter.SchoolInformationAdapter
 
 
 class SchoolInformation : BaseFragment() {
@@ -15,16 +23,41 @@ class SchoolInformation : BaseFragment() {
         FragmentSchoolInformationBinding.inflate(layoutInflater)
     }
 
+    private val schoolAdapter by lazy {
+        SchoolInformationAdapter{
+            findNavController().navigate(R.id.action_school_information_to_school_detail)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding.rvSchoolsList.apply {
+            adapter = schoolAdapter
+            layoutManager = LinearLayoutManager(
+                requireContext(),LinearLayoutManager.VERTICAL,false)
+        }
         // Inflate the layout for this fragment
         schoolsViewModel.schoolsInfo.observe(viewLifecycleOwner){ state ->
             when(state){
                 is UIState.LOADING -> {}
-                is UIState.SUCCESS<*> -> {}
-                is UIState.ERROR -> {}
+                is UIState.SUCCESS<*> -> {
+                    schoolAdapter.updateSchools(state.response as List<SchoolInfoResponse>)
+                }
+                is UIState.ERROR -> {
+                    AlertDialog.Builder(requireActivity())
+                        .setTitle("Error occured")
+                        .setMessage(state.error.localizedMessage)
+                        .setPositiveButton("Retry"){dialog,_ ->
+                            schoolsViewModel.getSchools()
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("Dismiss"){dialog,_ ->
+                        dialog.dismiss()
+
+                        }
+                }
             }
         }
         return binding.root

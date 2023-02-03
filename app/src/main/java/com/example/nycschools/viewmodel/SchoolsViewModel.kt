@@ -43,7 +43,7 @@ class SchoolsViewModel(
     /**
      * Method for getting the SAT Results List
      */
-    private fun getSatResults() {
+    fun getSatResults() {
         viewModelScope.launch(ioDispatcher) {
             schoolsRepository.getAllSatResults().collect {
                 _satResults.postValue(it)
@@ -57,7 +57,7 @@ class SchoolsViewModel(
     /**
      * Method for getting the Schools List
      */
-    private fun getSchools() {
+    fun getSchools() {
         viewModelScope.launch(ioDispatcher) {
             schoolsRepository.getAllSchools().collect {
                 _schoolsInfo.postValue(it)

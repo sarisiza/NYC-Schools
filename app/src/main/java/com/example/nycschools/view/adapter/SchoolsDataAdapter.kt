@@ -11,8 +11,9 @@ import com.example.nycschools.model.SchoolItem
  * [Class] - Defines the adapter for the School information
  */
 class SchoolsDataAdapter(
-    private val schoolsList: MutableList<SchoolInfoResponse> = mutableListOf()):
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val schoolsList: MutableList<SchoolInfoResponse> = mutableListOf(),
+    private val onClickedSchool: (SchoolInfoResponse) -> Unit
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SchoolViewHolder(
@@ -25,19 +26,22 @@ class SchoolsDataAdapter(
     override fun getItemCount() = schoolsList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as SchoolViewHolder).schoolBinding(schoolsList[position])
+        (holder as SchoolViewHolder).schoolBinding(schoolsList[position],onClickedSchool)
     }
 
 }
 
 class SchoolViewHolder(private val binding: SchoolInformationBinding): RecyclerView.ViewHolder(binding.root){
 
-    fun schoolBinding(school: SchoolInfoResponse){
+    fun schoolBinding(school: SchoolInfoResponse, onClickedSchool: (SchoolInfoResponse) -> Unit){
         binding.tvSchoolName.text = school.schoolName
         binding.tvEmail.text = school.schoolEmail
         binding.tvLocation.text = school.location
         binding.tvPhone.text = school.phoneNumber
         binding.tvWebpage.text = school.website
+        itemView.setOnClickListener {
+            onClickedSchool(school)
+        }
     }
 
 }

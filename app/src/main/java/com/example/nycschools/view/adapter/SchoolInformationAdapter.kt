@@ -15,7 +15,7 @@ import com.example.nycschools.utils.ViewType
  */
 class SchoolInformationAdapter(
     private val schoolsInfo: MutableList<ViewType> = mutableListOf(),
-    private val appContext: Context
+    private val onClickedSchool: (SchoolInfoResponse) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun updateSchools(newSchools: List<SchoolInfoResponse>){
@@ -25,7 +25,7 @@ class SchoolInformationAdapter(
             val firstLetter = school.schoolName?.first() ?: '+'
             if(firstLetter != tempChar){
                 if(schoolListTemp.size>0){
-                    schoolsInfo.add(ViewType.SCHOOLS_DATA(SchoolsDataAdapter(schoolListTemp)))
+                    schoolsInfo.add(ViewType.SCHOOLS_DATA(SchoolsDataAdapter(schoolListTemp,onClickedSchool)))
                     schoolListTemp.clear()
                 }
                 schoolsInfo.add(ViewType.LETTER(firstLetter.toString()))
@@ -45,7 +45,7 @@ class SchoolInformationAdapter(
             )
         } else{
             SchoolsDataViewHolder(
-                appContext, SchoolsDataHolderBinding.inflate(
+                SchoolsDataHolderBinding.inflate(
                     LayoutInflater.from(parent.context),parent,false
                 )
             )
@@ -75,14 +75,13 @@ class SchoolInformationAdapter(
 }
 
 class SchoolsDataViewHolder(
-    private val appContext: Context,
     private val binding: SchoolsDataHolderBinding
     ): RecyclerView.ViewHolder(binding.root){
 
     fun schoolDataBinding(schoolsDataAdapter: SchoolsDataAdapter){
         binding.rvSchoolsData.apply {
             adapter = schoolsDataAdapter
-            layoutManager = GridLayoutManager(appContext,2)
+            layoutManager = GridLayoutManager(context,2)
         }
     }
 }
