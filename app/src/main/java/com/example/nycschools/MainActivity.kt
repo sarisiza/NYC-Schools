@@ -2,6 +2,7 @@ package com.example.nycschools
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.nycschools.databinding.ActivityMainBinding
@@ -21,5 +22,9 @@ class MainActivity : AppCompatActivity() {
 
         val navHost = supportFragmentManager.findFragmentById(R.id.frag_container) as NavHostFragment
         setupActionBarWithNavController(navHost.navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.frag_container).navigateUp()
     }
 }
