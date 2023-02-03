@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".view.SchoolInformation">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="this is a fragment"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_schools_list"
         android:layout_width="match_parent"

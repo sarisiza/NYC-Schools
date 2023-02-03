@@ -34,9 +34,9 @@ data class SchoolItem(
 
     //SAT Results Item
     @Json(name = "sat_critical_reading_avg_score")
-    val satCriticalReadingAvgScore: String,
+    val satCriticalReadingAvgScore: String?,
     @Json(name = "sat_math_avg_score")
-    val satMathAvgScore: String,
+    val satMathAvgScore: String?,
     @Json(name = "sat_writing_avg_score")
-    val satWritingAvgScore: String
+    val satWritingAvgScore: String?
 )

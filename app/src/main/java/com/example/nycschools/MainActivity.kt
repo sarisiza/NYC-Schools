@@ -10,16 +10,16 @@ import com.example.nycschools.di.SchoolsApp
 const val TAG = "NYC Schools"
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        SchoolsApp.schoolsComponent.inject(this)
 
         val navHost = supportFragmentManager.findFragmentById(R.id.frag_container) as NavHostFragment
         setupActionBarWithNavController(navHost.navController)
-
-        SchoolsApp.schoolsComponent.inject(this)
     }
 }
