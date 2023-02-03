@@ -1,8 +1,10 @@
 package com.example.nycschools.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nycschools.TAG
 import com.example.nycschools.databinding.SchoolInformationBinding
 import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.model.SchoolItem
@@ -11,9 +13,13 @@ import com.example.nycschools.model.SchoolItem
  * [Class] - Defines the adapter for the School information
  */
 class SchoolsDataAdapter(
-    private val schoolsList: MutableList<SchoolInfoResponse> = mutableListOf(),
+    private val schoolsList: MutableList<SchoolInfoResponse>,
     private val onClickedSchool: (SchoolInfoResponse) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    init{
+        Log.d(TAG, "SchoolsDataAdapter: creating adapter")
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SchoolViewHolder(
@@ -26,6 +32,7 @@ class SchoolsDataAdapter(
     override fun getItemCount() = schoolsList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d(TAG, "onBindViewHolder: getting here")
         (holder as SchoolViewHolder).schoolBinding(schoolsList[position],onClickedSchool)
     }
 

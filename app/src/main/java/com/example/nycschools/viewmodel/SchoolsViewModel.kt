@@ -47,9 +47,6 @@ class SchoolsViewModel(
         viewModelScope.launch(ioDispatcher) {
             schoolsRepository.getAllSatResults().collect {
                 _satResults.postValue(it)
-                withContext(Dispatchers.Main){
-                    Log.d(TAG, "getSatResults: $it")
-                }
             }
         }
     }
@@ -61,9 +58,6 @@ class SchoolsViewModel(
         viewModelScope.launch(ioDispatcher) {
             schoolsRepository.getAllSchools().collect {
                 _schoolsInfo.postValue(it)
-                withContext(Dispatchers.Main){
-                    Log.d(TAG, "getSchools: $it")
-                }
             }
         }
     }

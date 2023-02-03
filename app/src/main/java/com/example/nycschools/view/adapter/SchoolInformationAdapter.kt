@@ -1,10 +1,12 @@
 package com.example.nycschools.view.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nycschools.TAG
 import com.example.nycschools.databinding.LetterHolderBinding
 import com.example.nycschools.databinding.SchoolsDataHolderBinding
 import com.example.nycschools.model.SchoolInfoResponse
@@ -24,8 +26,11 @@ class SchoolInformationAdapter(
         newSchools.sortedBy { it.schoolName }.forEach { school ->
             val firstLetter = school.schoolName?.first() ?: '+'
             if(firstLetter != tempChar){
+                Log.d(TAG, "updateSchools: ${schoolListTemp.size}")
                 if(schoolListTemp.size>0){
-                    schoolsInfo.add(ViewType.SCHOOLS_DATA(SchoolsDataAdapter(schoolListTemp,onClickedSchool)))
+                    Log.d(TAG, "updateSchools - if: $tempChar")
+                    val schoolsDataAdapterTemp = SchoolsDataAdapter(schoolListTemp,onClickedSchool)
+                    schoolsInfo.add(ViewType.SCHOOLS_DATA(schoolsDataAdapterTemp))
                     schoolListTemp.clear()
                 }
                 schoolsInfo.add(ViewType.LETTER(firstLetter.toString()))
@@ -65,7 +70,7 @@ class SchoolInformationAdapter(
         }
     }
 
-    fun getViewType(position: Int): Int{
+    override fun getItemViewType(position: Int): Int {
         return when(schoolsInfo[position]){
             is ViewType.LETTER -> 0
             is ViewType.SCHOOLS_DATA -> 1
@@ -81,7 +86,7 @@ class SchoolsDataViewHolder(
     fun schoolDataBinding(schoolsDataAdapter: SchoolsDataAdapter){
         binding.rvSchoolsData.apply {
             adapter = schoolsDataAdapter
-            layoutManager = GridLayoutManager(context,2)
+            layoutManager = GridLayoutManager(itemView.context,2)
         }
     }
 }

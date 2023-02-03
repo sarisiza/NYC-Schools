@@ -25,7 +25,7 @@ class SchoolInformation : BaseFragment() {
 
     private val schoolAdapter by lazy {
         SchoolInformationAdapter{
-            findNavController().navigate(R.id.action_school_information_to_school_detail)
+                findNavController().navigate(R.id.action_school_information_to_school_detail)
         }
     }
 
