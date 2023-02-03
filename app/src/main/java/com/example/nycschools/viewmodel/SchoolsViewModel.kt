@@ -2,13 +2,12 @@ package com.example.nycschools.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nycschools.TAG
-import com.example.nycschools.model.SchoolItem
 import com.example.nycschools.rest.SchoolsRepository
-import com.example.nycschools.utils.NullSchoolsException
 import com.example.nycschools.utils.UIState
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -21,14 +20,13 @@ class SchoolsViewModel(
 ): ViewModel() {
 
     //backing schools LiveData
-    private val _schools: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
-    val schools: LiveData<UIState> get() = _schools
+    private val _schoolsInfo: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
+    val schoolsInfo: LiveData<UIState> get() = _schoolsInfo
 
     //backing sat results LiveData
     private val _satResults: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
     val satResults: LiveData<UIState> get() = _satResults
 
-    //private val _schoolsData: MutableLiveData<UIState> = _schools.combineWith(_satResults){}
 
     /**
      * init block
@@ -38,6 +36,7 @@ class SchoolsViewModel(
         Log.d(TAG, "ViewModel:Init ViewModel ")
         getSchools()
         getSatResults()
+
     }
 
 
@@ -48,6 +47,9 @@ class SchoolsViewModel(
         viewModelScope.launch(ioDispatcher) {
             schoolsRepository.getAllSatResults().collect {
                 _satResults.postValue(it)
+                withContext(Dispatchers.Main){
+                    Log.d(TAG, "getSatResults: $it")
+                }
             }
         }
     }
@@ -58,15 +60,13 @@ class SchoolsViewModel(
     private fun getSchools() {
         viewModelScope.launch(ioDispatcher) {
             schoolsRepository.getAllSchools().collect {
-                _schools.postValue(it)
+                _schoolsInfo.postValue(it)
                 withContext(Dispatchers.Main){
                     Log.d(TAG, "getSchools: $it")
                 }
             }
         }
     }
-
-
 
 
 }

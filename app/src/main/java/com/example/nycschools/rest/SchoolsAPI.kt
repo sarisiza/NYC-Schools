@@ -1,5 +1,7 @@
 package com.example.nycschools.rest
 
+import com.example.nycschools.model.SatResultsResponse
+import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.model.SchoolItem
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,13 +17,13 @@ interface SchoolsAPI {
      * Method to get schools list from API
      */
     @GET(SCHOOLS)
-    suspend fun getSchools(): Response<List<SchoolItem>>
+    suspend fun getSchools(): Response<List<SchoolInfoResponse>>
 
     /**
      * Method tho get SAT Results from API
      */
     @GET(SAT_RESULTS)
-    suspend fun getSatResults(): Response<List<SchoolItem>>
+    suspend fun getSatResults(): Response<List<SatResultsResponse>>
 
     /**
      * Object that defines the URL for the API
