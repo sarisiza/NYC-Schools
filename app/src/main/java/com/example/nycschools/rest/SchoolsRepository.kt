@@ -2,6 +2,8 @@ package com.example.nycschools.rest
 
 import android.util.Log
 import com.example.nycschools.TAG
+import com.example.nycschools.model.SatResultsResponse
+import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.utils.FailureResponseException
 import com.example.nycschools.utils.NullSatResultsException
 import com.example.nycschools.utils.NullSchoolsException
@@ -18,12 +20,12 @@ interface SchoolsRepository {
     /**
      * Method to get schools
      */
-    fun getAllSchools(): Flow<UIState>
+    fun getAllSchools(): Flow<UIState<List<SchoolInfoResponse>>>
 
     /**
      * Method to get SAT results
      */
-    fun getAllSatResults(dbn: String): Flow<UIState>
+    fun getAllSatResults(dbn: String): Flow<UIState<List<SatResultsResponse>>>
 
 }
 
@@ -38,7 +40,7 @@ class SchoolsRepositoryImpl @Inject constructor(
     /**
      * Method to get schools
      */
-    override fun getAllSchools(): Flow<UIState> = flow{
+    override fun getAllSchools(): Flow<UIState<List<SchoolInfoResponse>>> = flow{
         emit(UIState.LOADING)
         try {
             val response = schoolsAPI.getSchools() //get json
@@ -56,7 +58,7 @@ class SchoolsRepositoryImpl @Inject constructor(
     /**
      * Method to get SAT results
      */
-    override fun getAllSatResults(dbn: String): Flow<UIState> = flow{
+    override fun getAllSatResults(dbn: String): Flow<UIState<List<SatResultsResponse>>> = flow{
         emit(UIState.LOADING)
         try {
             val response = schoolsAPI.getSatResults(dbn) //get json

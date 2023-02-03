@@ -7,10 +7,10 @@ import com.example.nycschools.model.SchoolItem
  * [Sealed class] - Defines the state of the UI
  */
 
-sealed class UIState{
+sealed class UIState<out T>{
 
-    object LOADING: UIState() //loading response
-    data class SUCCESS<T>(val response: T): UIState() //response succeeded
-    data class ERROR(val error: Exception): UIState() //error in response
+    object LOADING: UIState<Nothing>() //loading response
+    data class SUCCESS<T>(val response: T): UIState<T>() //response succeeded
+    data class ERROR(val error: Exception): UIState<Nothing>() //error in response
 
 }

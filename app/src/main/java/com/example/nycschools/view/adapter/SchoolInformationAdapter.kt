@@ -17,7 +17,7 @@ import com.example.nycschools.utils.ViewType
  */
 class SchoolInformationAdapter(
     private val schoolsInfo: MutableList<ViewType> = mutableListOf(),
-    private val onClickedSchool: (dbn: String) -> Unit
+    private val onClickedSchool: (String) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     //private val viewPool: RecyclerView.RecycledViewPool()

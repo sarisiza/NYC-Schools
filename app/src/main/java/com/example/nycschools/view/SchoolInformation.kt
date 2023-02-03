@@ -24,8 +24,8 @@ class SchoolInformation : BaseFragment() {
     }
 
     private val schoolAdapter by lazy {
-        SchoolInformationAdapter{
-            schoolsViewModel.getSatResults(it)
+        SchoolInformationAdapter{dbn ->
+            schoolsViewModel.getSatResults(dbn)
             findNavController().navigate(R.id.action_school_information_to_school_detail)
         }
     }
@@ -43,8 +43,8 @@ class SchoolInformation : BaseFragment() {
         schoolsViewModel.schoolsInfo.observe(viewLifecycleOwner){ state ->
             when(state){
                 is UIState.LOADING -> {}
-                is UIState.SUCCESS<*> -> {
-                    schoolAdapter.updateSchools(state.response as List<SchoolInfoResponse>)
+                is UIState.SUCCESS<List<SchoolInfoResponse>> -> {
+                    schoolAdapter.updateSchools(state.response)
                 }
                 is UIState.ERROR -> {
                     AlertDialog.Builder(requireActivity())

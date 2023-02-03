@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nycschools.TAG
+import com.example.nycschools.model.SatResultsResponse
+import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.rest.SchoolsRepository
 import com.example.nycschools.utils.UIState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,15 +20,12 @@ class SchoolsViewModel(
 ): ViewModel() {
 
     //backing schools LiveData
-    private val _schoolsInfo: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
-    val schoolsInfo: LiveData<UIState> get() = _schoolsInfo
+    private val _schoolsInfo: MutableLiveData<UIState<List<SchoolInfoResponse>>> = MutableLiveData(UIState.LOADING)
+    val schoolsInfo: LiveData<UIState<List<SchoolInfoResponse>>> get() = _schoolsInfo
 
     //backing sat results LiveData
-    private val _satResults: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
-    val satResults: LiveData<UIState> get() = _satResults
-
-    private val _schools = MediatorLiveData<Pair<UIState?,UIState?>>()
-    val schools: LiveData<Pair<UIState?,UIState?>> get() = _schools
+    private val _satResults: MutableLiveData<UIState<List<SatResultsResponse>>> = MutableLiveData(UIState.LOADING)
+    val satResults: LiveData<UIState<List<SatResultsResponse>>> get() = _satResults
 
 
     /**
