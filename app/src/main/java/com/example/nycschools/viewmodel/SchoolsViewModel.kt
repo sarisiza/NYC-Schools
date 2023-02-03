@@ -10,9 +10,7 @@ import com.example.nycschools.TAG
 import com.example.nycschools.rest.SchoolsRepository
 import com.example.nycschools.utils.UIState
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SchoolsViewModel(
     private val schoolsRepository: SchoolsRepository,
@@ -27,6 +25,9 @@ class SchoolsViewModel(
     private val _satResults: MutableLiveData<UIState> = MutableLiveData(UIState.LOADING)
     val satResults: LiveData<UIState> get() = _satResults
 
+    private val _schools = MediatorLiveData<Pair<UIState?,UIState?>>()
+    val schools: LiveData<Pair<UIState?,UIState?>> get() = _schools
+
 
     /**
      * init block
@@ -35,7 +36,6 @@ class SchoolsViewModel(
     init {
         Log.d(TAG, "ViewModel:Init ViewModel ")
         getSchools()
-        getSatResults()
 
     }
 
@@ -43,9 +43,9 @@ class SchoolsViewModel(
     /**
      * Method for getting the SAT Results List
      */
-    fun getSatResults() {
+    fun getSatResults(dbn: String) {
         viewModelScope.launch(ioDispatcher) {
-            schoolsRepository.getAllSatResults().collect {
+            schoolsRepository.getAllSatResults(dbn).collect {
                 _satResults.postValue(it)
             }
         }

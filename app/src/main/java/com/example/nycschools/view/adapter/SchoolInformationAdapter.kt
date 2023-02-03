@@ -1,11 +1,11 @@
 package com.example.nycschools.view.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.example.nycschools.TAG
 import com.example.nycschools.databinding.LetterHolderBinding
 import com.example.nycschools.databinding.SchoolsDataHolderBinding
@@ -17,8 +17,16 @@ import com.example.nycschools.utils.ViewType
  */
 class SchoolInformationAdapter(
     private val schoolsInfo: MutableList<ViewType> = mutableListOf(),
-    private val onClickedSchool: (SchoolInfoResponse) -> Unit
+    private val onClickedSchool: (dbn: String) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    //private val viewPool: RecyclerView.RecycledViewPool()
+
+    private val schoolsDataAdapter by lazy {
+        SchoolsDataAdapter(
+            mutableListOf(),onClickedSchool
+        )
+    }
 
     fun updateSchools(newSchools: List<SchoolInfoResponse>){
         var tempChar = '+'
@@ -29,8 +37,8 @@ class SchoolInformationAdapter(
                 Log.d(TAG, "updateSchools: ${schoolListTemp.size}")
                 if(schoolListTemp.size>0){
                     Log.d(TAG, "updateSchools - if: $tempChar")
-                    val schoolsDataAdapterTemp = SchoolsDataAdapter(schoolListTemp,onClickedSchool)
-                    schoolsInfo.add(ViewType.SCHOOLS_DATA(schoolsDataAdapterTemp))
+                    schoolsDataAdapter.updateSchools(schoolListTemp)
+                    schoolsInfo.add(ViewType.SCHOOLS_DATA(schoolsDataAdapter))
                     schoolListTemp.clear()
                 }
                 schoolsInfo.add(ViewType.LETTER(firstLetter.toString()))
