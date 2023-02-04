@@ -17,13 +17,9 @@ class SchoolsDataAdapter(
     private val onClickedSchool: (String) -> Unit
 ): RecyclerView.Adapter<SchoolViewHolder>() {
 
-    init{
-        Log.d(TAG, "SchoolsDataAdapter: creating adapter")
-    }
 
     fun updateSchools(newSchools: List<SchoolInfoResponse>){
         if(schoolsList != newSchools){
-            schoolsList.clear()
             schoolsList.addAll(newSchools)
 
             notifyDataSetChanged()
@@ -41,7 +37,6 @@ class SchoolsDataAdapter(
     override fun getItemCount() = schoolsList.size
 
     override fun onBindViewHolder(holder: SchoolViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder: getting here")
         holder.schoolBinding(schoolsList[position],onClickedSchool)
     }
 

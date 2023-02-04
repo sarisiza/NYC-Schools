@@ -22,23 +22,23 @@ class SchoolInformationAdapter(
 
     //private val viewPool: RecyclerView.RecycledViewPool()
 
-    private val schoolsDataAdapter by lazy {
-        SchoolsDataAdapter(
-            mutableListOf(),onClickedSchool
-        )
-    }
 
     fun updateSchools(newSchools: List<SchoolInfoResponse>){
         var tempChar = '+'
         val schoolListTemp: MutableList<SchoolInfoResponse> = mutableListOf()
+        val schoolsDataAdapter: MutableList<SchoolsDataAdapter> = mutableListOf()
+        var i = 0
         newSchools.sortedBy { it.schoolName }.forEach { school ->
             val firstLetter = school.schoolName?.first() ?: '+'
             if(firstLetter != tempChar){
                 Log.d(TAG, "updateSchools: ${schoolListTemp.size}")
                 if(schoolListTemp.size>0){
                     Log.d(TAG, "updateSchools - if: $tempChar")
-                    schoolsDataAdapter.updateSchools(schoolListTemp)
-                    schoolsInfo.add(ViewType.SCHOOLS_DATA(schoolsDataAdapter))
+                    val schoolsDataAdapterTemp = SchoolsDataAdapter(mutableListOf(), onClickedSchool)
+                    schoolsDataAdapter.add(schoolsDataAdapterTemp)
+                    schoolsDataAdapter[i].updateSchools(schoolListTemp)
+                    schoolsInfo.add(ViewType.SCHOOLS_DATA(schoolsDataAdapter[i]))
+                    i++
                     schoolListTemp.clear()
                 }
                 schoolsInfo.add(ViewType.LETTER(firstLetter.toString()))
