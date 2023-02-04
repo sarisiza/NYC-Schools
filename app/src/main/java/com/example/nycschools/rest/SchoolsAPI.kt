@@ -2,11 +2,8 @@ package com.example.nycschools.rest
 
 import com.example.nycschools.model.SatResultsResponse
 import com.example.nycschools.model.SchoolInfoResponse
-import com.example.nycschools.model.SchoolItem
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
 
 /**
  * [FunctionalInterface] - Defines the methods to connect to the schools API through retrofit
@@ -21,12 +18,10 @@ interface SchoolsAPI {
     suspend fun getSchools(): Response<List<SchoolInfoResponse>>
 
     /**
-     * Method tho get SAT Results from API
+     * Method to get SAT Results from API
      */
     @GET(SAT_RESULTS)
-    suspend fun getSatResults(
-        @Query("dbn") dbn: String
-    ): Response<List<SatResultsResponse>>
+    suspend fun getSatResults(): Response<List<SatResultsResponse>>
 
     /**
      * Object that defines the URL for the API

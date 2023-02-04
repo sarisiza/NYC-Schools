@@ -12,7 +12,8 @@
         android:label="NYC Schools">
         <action
             android:id="@+id/action_school_information_to_school_detail"
-            app:destination="@id/school_detail" />
+            app:destination="@id/school_detail" >
+        </action>
     </fragment>
 
     <fragment

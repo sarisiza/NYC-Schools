@@ -1,16 +1,16 @@
 package com.example.nycschools.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.nycschools.R
+import com.example.nycschools.TAG
 import com.example.nycschools.databinding.FragmentSchoolDetailsBinding
 import com.example.nycschools.model.SatResultsResponse
 import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.utils.BaseFragment
-import com.example.nycschools.utils.UIState
 
 /**
  * [Fragment] to create School Details
@@ -21,22 +21,51 @@ class SchoolDetails : BaseFragment() {
         FragmentSchoolDetailsBinding.inflate(layoutInflater)
     }
 
+    private var schoolItem: SchoolInfoResponse = SchoolInfoResponse()
+    private var satItem: SatResultsResponse = SatResultsResponse()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var schoolItem: SchoolInfoResponse
-        var satItem: SatResultsResponse
-        /*
-        binding.tvSchoolName.text = schoolItem.schoolName
-        binding.tvOverviewParagraph.text = schoolItem.overviewParagraph
-        binding.tvMathScore.text = satItem.satMathAvgScore
-        binding.tvReadingScore.text = satItem.satCriticalReadingAvgScore
-        binding.tvWritingScore.text = satItem.satWritingAvgScore
-        }*/
+        schoolsViewModel.schoolsInfoList.observe(viewLifecycleOwner){
+            getSchoolItem(schoolsViewModel.itemSelected.value.toString(),it)
+            binding.tvSchoolName.text = schoolItem.schoolName ?: ""
+            binding.tvOverviewParagraph.text = schoolItem.overviewParagraph ?: ""
+        }
+        schoolsViewModel.satResultsList.observe(viewLifecycleOwner){
+            getSatItem(schoolsViewModel.itemSelected.value.toString(),it)
+            binding.tvMathScore.text = satItem.satMathAvgScore ?: ""
+            binding.tvReadingScore.text = satItem.satCriticalReadingAvgScore ?: ""
+            binding.tvWritingScore.text = satItem.satWritingAvgScore ?: ""
+        }
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun getSchoolItem(dbn: String, schoolList: List<SchoolInfoResponse>?){
+        var found = false
+        var i = 0
+        while (!found && i < (schoolList?.size ?: 0)){
+            if(schoolList?.get(i)?.dbn == dbn){
+                schoolItem = schoolList[i]
+                found = true
+            }
+            i++
+        }
+    }
+
+    private fun getSatItem(dbn: String, satList: List<SatResultsResponse>?){
+        var found = false
+        var i = 0
+        while (!found && i < (satList?.size ?: 0)){
+            if(satList?.get(i)?.dbn == dbn){
+                satItem = satList[i]
+                found = true
+            }
+            i++
+        }
     }
 
 }

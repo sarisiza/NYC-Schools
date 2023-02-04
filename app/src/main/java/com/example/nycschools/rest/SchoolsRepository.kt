@@ -25,7 +25,7 @@ interface SchoolsRepository {
     /**
      * Method to get SAT results
      */
-    fun getAllSatResults(dbn: String): Flow<UIState<List<SatResultsResponse>>>
+    fun getAllSatResults(): Flow<UIState<List<SatResultsResponse>>>
 
 }
 
@@ -58,15 +58,17 @@ class SchoolsRepositoryImpl @Inject constructor(
     /**
      * Method to get SAT results
      */
-    override fun getAllSatResults(dbn: String): Flow<UIState<List<SatResultsResponse>>> = flow{
+    override fun getAllSatResults(): Flow<UIState<List<SatResultsResponse>>> = flow{
         emit(UIState.LOADING)
         try {
-            val response = schoolsAPI.getSatResults(dbn) //get json
+            val response = schoolsAPI.getSatResults() //get json
             if (response.isSuccessful){
                 response.body()?.let {
                     emit(UIState.SUCCESS(it))
                 }?: throw NullSatResultsException()
-            } else throw FailureResponseException(response.errorBody()?.string())
+            } else{
+                throw FailureResponseException(response.errorBody()?.string())
+            }
         }catch (e: Exception){
             emit(UIState.ERROR(e))
             Log.e(TAG, "getAllSatResults: ${e.localizedMessage}", e)

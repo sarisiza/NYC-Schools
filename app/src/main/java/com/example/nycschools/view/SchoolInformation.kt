@@ -1,12 +1,10 @@
 package com.example.nycschools.view
 
 import android.app.AlertDialog
-import android.icu.lang.UCharacter.VerticalOrientation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nycschools.R
@@ -23,9 +21,9 @@ class SchoolInformation : BaseFragment() {
         FragmentSchoolInformationBinding.inflate(layoutInflater)
     }
 
-    private val schoolAdapter by lazy {
-        SchoolInformationAdapter{dbn ->
-            schoolsViewModel.getSatResults(dbn)
+    protected val schoolAdapter by lazy {
+        SchoolInformationAdapter{
+            schoolsViewModel.selectItem(it)
             findNavController().navigate(R.id.action_school_information_to_school_detail)
         }
     }
@@ -33,7 +31,7 @@ class SchoolInformation : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding.rvSchoolsList.apply {
             adapter = schoolAdapter
             layoutManager = LinearLayoutManager(
@@ -63,4 +61,5 @@ class SchoolInformation : BaseFragment() {
         }
         return binding.root
     }
+
 }

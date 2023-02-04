@@ -1,11 +1,9 @@
 package com.example.nycschools.view.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nycschools.TAG
 import com.example.nycschools.databinding.LetterHolderBinding
 import com.example.nycschools.databinding.SchoolsDataHolderBinding
 import com.example.nycschools.model.SchoolInfoResponse
@@ -30,9 +28,7 @@ class SchoolInformationAdapter(
         newSchools.sortedBy { it.schoolName }.forEach { school ->
             val firstLetter = school.schoolName?.first() ?: '+'
             if(firstLetter != tempChar){
-                Log.d(TAG, "updateSchools: ${schoolListTemp.size}")
                 if(schoolListTemp.size>0){
-                    Log.d(TAG, "updateSchools - if: $tempChar")
                     val schoolsDataAdapterTemp = SchoolsDataAdapter(mutableListOf(), onClickedSchool)
                     schoolsDataAdapter.add(schoolsDataAdapterTemp)
                     schoolsDataAdapter[i].updateSchools(schoolListTemp)
