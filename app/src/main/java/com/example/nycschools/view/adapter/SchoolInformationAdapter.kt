@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.example.nycschools.TAG
 import com.example.nycschools.databinding.LetterHolderBinding
 import com.example.nycschools.databinding.SchoolsDataHolderBinding

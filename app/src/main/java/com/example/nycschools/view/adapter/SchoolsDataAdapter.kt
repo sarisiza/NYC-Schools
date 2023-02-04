@@ -1,10 +1,9 @@
 package com.example.nycschools.view.adapter
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nycschools.TAG
 import com.example.nycschools.databinding.SchoolInformationBinding
 import com.example.nycschools.model.SchoolInfoResponse
 
