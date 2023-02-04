@@ -2,10 +2,10 @@ package com.example.nycschools.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.nycschools.model.SchoolItem
+import com.example.nycschools.model.SchoolInfoResponse
 
 @Database(
-    entities = [SchoolItem::class],
+    entities = [SchoolInfoResponse::class],
     version = 1
 )
 

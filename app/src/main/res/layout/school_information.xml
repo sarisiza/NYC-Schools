@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:elevation="8dp"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +19,7 @@
             android:text="@string/tv_text_school_name"
             android:gravity="center"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="12sp"
             android:textColor="@color/black"/>
 
         <TextView
@@ -23,28 +27,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_text_location"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="11sp"/>
 
         <TextView
             android:id="@+id/tv_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_text_phone"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="11sp"/>
 
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_text_email"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="11sp"/>
 
         <TextView
             android:id="@+id/tv_webpage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tv_text_webpage"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="11sp"/>
 
     </LinearLayout>
 

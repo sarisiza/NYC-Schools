@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.SchoolDetails"
     android:padding="16dp"
@@ -86,5 +86,13 @@
                 android:padding="20dp"/>
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:id="@+id/btn_find_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_sat_scores"
+        android:text="@string/btn_text_find_me"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

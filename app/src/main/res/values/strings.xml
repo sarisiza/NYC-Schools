@@ -14,5 +14,6 @@
     <string name="tv_text_phone">phone</string>
     <string name="tv_text_email">email</string>
     <string name="tv_text_webpage">webpage</string>
+    <string name="btn_text_find_me">Find me!</string>
 
 </resources>

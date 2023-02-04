@@ -1,7 +1,5 @@
 package com.example.nycschools.utils
 
-import com.example.nycschools.model.SchoolItem
-
 
 /**
  * [Sealed class] - Defines the state of the UI
