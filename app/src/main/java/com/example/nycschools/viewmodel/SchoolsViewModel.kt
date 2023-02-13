@@ -45,9 +45,7 @@ class SchoolsViewModel(
             ViewIntent.SCHOOLS -> {
                 getSatResults()
             }
-            is ViewIntent.SCHOOL_SCORE -> {
-
-            }
+            is ViewIntent.SCHOOL_SCORE -> {}
         }
     }
 
