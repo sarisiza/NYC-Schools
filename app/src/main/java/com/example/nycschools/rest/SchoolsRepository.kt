@@ -44,7 +44,7 @@ class SchoolsRepositoryImpl @Inject constructor(
         emit(UIState.LOADING)
         try {
             val response = schoolsAPI.getSchools() //get json
-            if(response.isSuccessful){ //check if response was successful
+            if(response.isSuccessful) { //check if response was successful
                 response.body()?.let {
                     emit(UIState.SUCCESS(it))
                 }?: throw NullSchoolsException() //check if response was null
