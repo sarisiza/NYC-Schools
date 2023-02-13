@@ -8,6 +8,7 @@ import com.example.nycschools.model.SatResultsResponse
 import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.rest.SchoolsRepository
 import com.example.nycschools.utils.UIState
+import com.example.nycschools.utils.ViewIntent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
@@ -36,13 +37,18 @@ class SchoolsViewModel(
     val satResultsList: LiveData<List<SatResultsResponse>?> get() = _satResultsList
 
 
-    /**
-     * init block
-     * get data from the api when initializing the ViewModel
-     */
-    init {
-        getSchools()
-        getSatResults()
+    fun getIntentView(intentView: ViewIntent){
+        when(intentView){
+            ViewIntent.SAT_SCORES -> {
+                getSchools()
+            }
+            ViewIntent.SCHOOLS -> {
+                getSatResults()
+            }
+            is ViewIntent.SCHOOL_SCORE -> {
+
+            }
+        }
     }
 
 
