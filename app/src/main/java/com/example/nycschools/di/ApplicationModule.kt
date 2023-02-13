@@ -2,10 +2,12 @@ package com.example.nycschools.di
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
 import androidx.room.Room
 import com.example.nycschools.database.SchoolsDAO
 import com.example.nycschools.database.SchoolsDatabase
 import com.example.nycschools.rest.SchoolsRepository
+import com.example.nycschools.usecases.SchoolsUseCase
 import com.example.nycschools.utils.SchoolsViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -50,8 +52,15 @@ class ApplicationModule(private val application: Application) {
     @Provides
     fun provideViewModelFactory(
         repository: SchoolsRepository,
-        ioDispatcher: CoroutineDispatcher
+        ioDispatcher: CoroutineDispatcher,
+        schoolsUseCase: SchoolsUseCase
     ): SchoolsViewModelFactory =
-        SchoolsViewModelFactory(repository,ioDispatcher)
+        SchoolsViewModelFactory(repository, schoolsUseCase, ioDispatcher)
+
+    @Provides
+    fun providesConnectivityManager(
+        context: Context
+    ):  ConnectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
 }

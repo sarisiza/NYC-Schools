@@ -12,6 +12,7 @@ import com.example.nycschools.databinding.FragmentSchoolInformationBinding
 import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.utils.BaseFragment
 import com.example.nycschools.utils.UIState
+import com.example.nycschools.utils.ViewIntent
 import com.example.nycschools.view.adapter.SchoolInformationAdapter
 
 
@@ -59,6 +60,9 @@ class SchoolInformation : BaseFragment() {
                 }
             }
         }
+
+        schoolsViewModel.getIntentView(ViewIntent.SCHOOLS)
+
         return binding.root
     }
 

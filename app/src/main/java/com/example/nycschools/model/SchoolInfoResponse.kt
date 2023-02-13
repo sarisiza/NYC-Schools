@@ -2,6 +2,7 @@ package com.example.nycschools.model
 
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -13,6 +14,8 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class SchoolInfoResponse(
     //Schools Info
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     @Json(name = "dbn")
     val dbn: String? = null,
     @Json(name = "latitude")

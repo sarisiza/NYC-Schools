@@ -7,12 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.nycschools.model.SatResultsResponse
 import com.example.nycschools.model.SchoolInfoResponse
 import com.example.nycschools.rest.SchoolsRepository
+import com.example.nycschools.usecases.SchoolsUseCase
 import com.example.nycschools.utils.UIState
+import com.example.nycschools.utils.ViewIntent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class SchoolsViewModel(
     private val schoolsRepository: SchoolsRepository,
+    private val schoolsUseCase: SchoolsUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
@@ -35,16 +38,49 @@ class SchoolsViewModel(
     private val _satResultsList: MutableLiveData<List<SatResultsResponse>?> = MutableLiveData()
     val satResultsList: LiveData<List<SatResultsResponse>?> get() = _satResultsList
 
+    var schoolItem: SchoolInfoResponse? = null
+    var satItem: SatResultsResponse? = null
+
+    fun getSchoolItem(dbn: String, schoolList: List<SchoolInfoResponse>?){
+        var found = false
+        var i = 0
+        while (!found && i < (schoolList?.size ?: 0)){
+            if(schoolList?.get(i)?.dbn == dbn){
+                schoolItem = schoolList[i]
+                found = true
+            }
+            i++
+        }
+    }
+
+    fun getSatItem(dbn: String, satList: List<SatResultsResponse>?){
+        var found = false
+        var i = 0
+        while (!found && i < (satList?.size ?: 0)){
+            if(satList?.get(i)?.dbn == dbn){
+                satItem = satList[i]
+                found = true
+            }
+            i++
+        }
+    }
 
     /**
      * init block
      * get data from the api when initializing the ViewModel
      */
     init {
-        getSchools()
-        getSatResults()
+//        getSchools()
+//        getSatResults()
     }
 
+    fun getIntentView(intentView: ViewIntent) {
+        when(intentView) {
+            is ViewIntent.SCHOOLS -> { getSchools() }
+            is ViewIntent.SAT_SCORES -> { getSatResults() }
+            is ViewIntent.SCHOOL_SCORE  -> {}
+        }
+    }
 
     /**
      * Method for getting the SAT Results List
@@ -65,7 +101,7 @@ class SchoolsViewModel(
      */
     fun getSchools() {
         viewModelScope.launch(ioDispatcher) {
-            schoolsRepository.getAllSchools().collect {
+            schoolsUseCase.getSchools().collect {
                 _schoolsInfo.postValue(it)
                 if(it is UIState.SUCCESS<List<SchoolInfoResponse>>){
                     _schoolsInfoList.postValue(it.response)

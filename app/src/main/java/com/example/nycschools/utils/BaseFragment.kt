@@ -11,9 +11,12 @@ open class BaseFragment : Fragment() {
 
     @Inject
     lateinit var schoolsViewModelFactory: SchoolsViewModelFactory
-    var currentDbn = ""
+
+    //  this should go to the viewmodel
+    // var currentDbn = ""
 
     protected val schoolsViewModel: SchoolsViewModel by lazy {
+        viewModelStore
         ViewModelProvider(requireActivity(), schoolsViewModelFactory)[SchoolsViewModel::class.java]
     }
 
